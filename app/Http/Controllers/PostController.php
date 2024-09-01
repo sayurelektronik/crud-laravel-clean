@@ -48,7 +48,7 @@ class PostController extends Controller
     // Menampilkan detail post
     public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -57,7 +57,7 @@ class PostController extends Controller
     // Menampilkan form untuk mengedit post
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -66,7 +66,14 @@ class PostController extends Controller
     // Memperbarui post yang ada
     public function update(Request $request, Post $post)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+        ]);
+
+        $post->update($validatedData);
+
+        return redirect()->route('posts.index')->with('success', 'Post updated successfully.');
     }
 
     /**
