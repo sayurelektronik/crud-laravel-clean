@@ -82,6 +82,8 @@ class PostController extends Controller
     // Menghapus post
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
     }
 }
